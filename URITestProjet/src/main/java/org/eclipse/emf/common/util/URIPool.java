@@ -28,22 +28,22 @@ import java.lang.ref.WeakReference;
     /**
      * Access units for basic string access.
      */
-    protected final QueueString stringAccessUnits = new QueueString(this);
+    protected final Queue stringAccessUnits = new QueueString(this);
 
     /**
      * Access units for platform URI string-based access.
      */
-    protected final QueuePlateform platformAccessUnits = new QueuePlateform();
+    protected final Queue platformAccessUnits = new QueuePlateform();
 
     /**
      * Access units for file URI string-based access.
      */
-    protected final QueueFile fileAccessUnits = new QueueFile();
+    protected final Queue fileAccessUnits = new QueueFile();
 
     /**
      * Access units for component-based access.
      */
-    protected final QueueComponent uriComponentsAccessUnits = new QueueComponent();
+    protected final Queue uriComponentsAccessUnits = new QueueComponent();
 
     /**
      * Intern a URI from its string representation, parsing if necessary.
@@ -76,7 +76,7 @@ import java.lang.ref.WeakReference;
         writeLock.lock();
         try
         {
-          StringAccessUnit accessUnit = stringAccessUnits.pop(true);
+          StringAccessUnit accessUnit = (StringAccessUnit) stringAccessUnits.pop(true);
           accessUnit.setValue(string, hashCode);
 
           // The implementation returns an internalized value that's already pooled as a side effect.
@@ -98,7 +98,7 @@ import java.lang.ref.WeakReference;
      */
     protected URI intern(String base, String pathName, boolean encode)
     {
-      PlatformAccessUnit accessUnit = platformAccessUnits.pop(false);
+      PlatformAccessUnit accessUnit = (PlatformAccessUnit) platformAccessUnits.pop(false);
       accessUnit.setValue(base, pathName, encode);
       return doIntern(false, accessUnit);
     }
@@ -108,7 +108,7 @@ import java.lang.ref.WeakReference;
      */
     protected URI internFile(String pathName)
     {
-      FileAccessUnit accessUnit = fileAccessUnits.pop(false);
+      FileAccessUnit accessUnit = (FileAccessUnit) fileAccessUnits.pop(false);
       accessUnit.setValue(pathName);
       return doIntern(false, accessUnit);
     }
@@ -127,7 +127,7 @@ import java.lang.ref.WeakReference;
       URI uri;
       try
       {
-        URIComponentsAccessUnit accessUnit = uriComponentsAccessUnits.pop(isExclusive);
+        URIComponentsAccessUnit accessUnit = (URIComponentsAccessUnit) uriComponentsAccessUnits.pop(isExclusive);
         accessUnit.setValue(validate, hierarchical, scheme, authority, device, absolutePath, segments, query);
         uri = doIntern(isExclusive, accessUnit);
       }
@@ -154,7 +154,7 @@ import java.lang.ref.WeakReference;
       URI uri;
       try
       {
-        URIComponentsAccessUnit accessUnit = uriComponentsAccessUnits.pop(isExclusive);
+        URIComponentsAccessUnit accessUnit = (URIComponentsAccessUnit) uriComponentsAccessUnits.pop(isExclusive);
         accessUnit.setValue(hierarchical, scheme, authority, device, absolutePath, segments, query, hashCode);
         uri = doIntern(isExclusive, accessUnit);
       }

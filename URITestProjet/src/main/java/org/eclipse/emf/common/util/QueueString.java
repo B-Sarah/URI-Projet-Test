@@ -2,7 +2,7 @@ package org.eclipse.emf.common.util;
 
 import org.eclipse.emf.common.util.Pool.AccessUnit;
 
-class QueueString extends AccessUnit.Queue<URI>
+class QueueString extends Queue
   {
     private static final long serialVersionUID = 1L;
 
