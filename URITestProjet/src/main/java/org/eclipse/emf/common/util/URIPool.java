@@ -28,22 +28,22 @@ import java.lang.ref.WeakReference;
     /**
      * Access units for basic string access.
      */
-    protected final StringAccessUnit.Queue stringAccessUnits = new StringAccessUnit.Queue(this);
+    protected final QueueString stringAccessUnits = new QueueString(this);
 
     /**
      * Access units for platform URI string-based access.
      */
-    protected final PlatformAccessUnit.Queue platformAccessUnits = new PlatformAccessUnit.Queue();
+    protected final QueuePlateform platformAccessUnits = new QueuePlateform();
 
     /**
      * Access units for file URI string-based access.
      */
-    protected final FileAccessUnit.Queue fileAccessUnits = new FileAccessUnit.Queue();
+    protected final QueueFile fileAccessUnits = new QueueFile();
 
     /**
      * Access units for component-based access.
      */
-    protected final URIComponentsAccessUnit.Queue uriComponentsAccessUnits = new URIComponentsAccessUnit.Queue();
+    protected final QueueComponent uriComponentsAccessUnits = new QueueComponent();
 
     /**
      * Intern a URI from its string representation, parsing if necessary.

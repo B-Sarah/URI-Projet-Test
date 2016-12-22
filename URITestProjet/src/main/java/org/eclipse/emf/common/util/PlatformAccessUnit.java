@@ -2,30 +2,11 @@ package org.eclipse.emf.common.util;
 
 import java.io.File;
 
-import org.eclipse.emf.common.util.Pool.AccessUnit;
-
 /**
  * An access units for platform URI string-based access.
  */
 class PlatformAccessUnit extends URIPoolAccessUnitBase
 {
-  protected static class Queue extends AccessUnit.Queue<URI>
-  {
-    private static final long serialVersionUID = 1L;
-
-    @Override
-    public PlatformAccessUnit pop(boolean isExclusive)
-    {
-      return (PlatformAccessUnit)super.pop(isExclusive);
-    }
-
-    @Override
-    protected AccessUnit<URI> newAccessUnit()
-    {
-      return new PlatformAccessUnit(this);
-    }
-  }
-
   /**
    * The hash code of <code>"platform:/resource/"</code>.
    */
@@ -99,7 +80,7 @@ class PlatformAccessUnit extends URIPoolAccessUnitBase
   /**
    * Creates and instance managed by the given queue.
    */
-  protected PlatformAccessUnit(PlatformAccessUnit.Queue queue)
+  protected PlatformAccessUnit(Queue queue)
   {
     super(queue);
   }

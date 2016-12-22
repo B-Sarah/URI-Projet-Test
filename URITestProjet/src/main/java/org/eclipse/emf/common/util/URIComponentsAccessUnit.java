@@ -1,7 +1,5 @@
 package org.eclipse.emf.common.util;
 
-import org.eclipse.emf.common.util.Pool.AccessUnit;
-
 /**
  * An Access unit for component-based access.
  */
@@ -21,23 +19,6 @@ class URIComponentsAccessUnit extends URIPoolAccessUnitBase
    * A value for {@link #validate} that implies only the query componet needs validating.
    */
   protected static final int VALIDATE_QUERY = -3;
-
-  protected static class Queue extends AccessUnit.Queue<URI>
-  {
-    private static final long serialVersionUID = 1L;
-
-    @Override
-    public URIComponentsAccessUnit pop(boolean isExclusive)
-    {
-      return (URIComponentsAccessUnit)super.pop(isExclusive);
-    }
-
-    @Override
-    protected AccessUnit<URI> newAccessUnit()
-    {
-      return new URIComponentsAccessUnit(this);
-    }
-  }
 
   /**
    * One of the special values {@link #VALIDATE_NONE}, {@link #VALIDATE_ALL}, or {@link #VALIDATE_QUERY}, or the index in the {@link #segments} that need validation.
@@ -87,7 +68,7 @@ class URIComponentsAccessUnit extends URIPoolAccessUnitBase
    * Creates an instance managed by the given queue.
    * @param queue
    */
-  protected URIComponentsAccessUnit(URIComponentsAccessUnit.Queue queue)
+  protected URIComponentsAccessUnit(Queue queue)
   {
     super(queue);
   }

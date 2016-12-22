@@ -2,30 +2,11 @@ package org.eclipse.emf.common.util;
 
 import java.io.File;
 
-import org.eclipse.emf.common.util.Pool.AccessUnit;
-
 /**
  * An Access unit for file URI string-based access.
  */
 class FileAccessUnit extends URIPoolAccessUnitBase
 {
-  protected static class Queue extends AccessUnit.Queue<URI>
-  {
-    private static final long serialVersionUID = 1L;
-
-    @Override
-    public FileAccessUnit pop(boolean isExclusive)
-    {
-      return (FileAccessUnit)super.pop(isExclusive);
-    }
-
-    @Override
-    protected AccessUnit<URI> newAccessUnit()
-    {
-      return new FileAccessUnit(this);
-    }
-  }
-
   /**
    * The base URI for file scheme URIs.
    */
@@ -99,7 +80,7 @@ class FileAccessUnit extends URIPoolAccessUnitBase
   /**
    * Creates an instance managed by the given queue.
    */
-  public FileAccessUnit(FileAccessUnit.Queue queue)
+  public FileAccessUnit(Queue queue)
   {
     super(queue);
 

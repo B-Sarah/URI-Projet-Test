@@ -1,36 +1,10 @@
 package org.eclipse.emf.common.util;
 
-import org.eclipse.emf.common.util.Pool.AccessUnit;
-
 /**
  * An access unit for basic string access.
  */
 class StringAccessUnit extends URIPoolAccessUnitBase
 {
-  protected static class Queue extends AccessUnit.Queue<URI>
-  {
-    private static final long serialVersionUID = 1L;
-
-    final protected URIPool pool;
-
-    public Queue(URIPool pool)
-    {
-      this.pool = pool;
-    }
-
-    @Override
-    public StringAccessUnit pop(boolean isExclusive)
-    {
-      return (StringAccessUnit)super.pop(isExclusive);
-    }
-
-    @Override
-    protected AccessUnit<URI> newAccessUnit()
-    {
-      return new StringAccessUnit(this, pool);
-    }
-  }
-
   /**
    * This unit's pool.
    */
@@ -83,7 +57,7 @@ class StringAccessUnit extends URIPoolAccessUnitBase
   /**
    * Creates an instance managed by this queue and pool.
    */
-  protected StringAccessUnit(StringAccessUnit.Queue queue, URIPool pool)
+  protected StringAccessUnit(Queue queue, URIPool pool)
   {
     super(queue);
     this.pool = pool;
